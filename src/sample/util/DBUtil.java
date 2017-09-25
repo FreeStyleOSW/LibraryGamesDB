@@ -16,7 +16,7 @@ public class DBUtil {
     // String Połączenia
     // String connStr = "jdbc:oracle:thin:Username/Password@IP:Port/SID";
     // Username=HR, Password=HR, IP=localhost, IP=1521, SID=xe
-    private static final String connStr = "jdbc:oracle:thin:HR/HR@localhost:1521/xe";
+    private static final String connStr = "jdbc:oracle:thin:Marcin/kadimato@localhost:1521/xe";
 
     //Connect to DB
     public static void dbConnect() throws SQLException, ClassNotFoundException {

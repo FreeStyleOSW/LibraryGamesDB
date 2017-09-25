@@ -38,9 +38,8 @@ public class Main extends Application {
         try {
             //First load root layout from RootLayout.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(getClass().getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-            System.out.println(loader.getLocation());
 
             //Second, show the scene containing the root layout.
             Scene scene = new Scene(rootLayout); // We are sending rootLayout to the Scene.
