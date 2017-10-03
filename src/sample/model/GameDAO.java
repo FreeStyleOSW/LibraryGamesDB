@@ -2,10 +2,11 @@ package sample.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import sample.util.ConnectionConfiguration;
 import sample.util.DBUtil;
+import sun.plugin2.gluegen.runtime.CPU;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Created by Marcin on 21.09.2017.
@@ -15,7 +16,7 @@ public class GameDAO {
     // SELECT a Game
     // ********************
     public static Game searchGame (String gameId) throws SQLException, ClassNotFoundException {
-        String selectStmt = "SELECT * FROM games WHERE game_id" + gameId;
+        String selectStmt = "SELECT * FROM games WHERE GAME_ID = " + gameId;
 
         // Execute SELECT statement
         try {
@@ -39,7 +40,6 @@ public class GameDAO {
             game.setGame_id(rs.getInt("GAME_ID"));
             game.setName(rs.getString("NAME"));
             game.setDevelop(rs.getString("DEVELOP"));
-            game.setCreate_date(rs.getDate("CREATE_DATE"));
             game.setCost(rs.getDouble("COST"));
         }
         return game;
@@ -47,7 +47,7 @@ public class GameDAO {
     //***********************
     // SELECT Games
     //***********************
-    public static ObservableList<Game> searchGames() throws SQLException, ClassNotFoundException {
+    public static ObservableList<Game> findAllGames() throws SQLException, ClassNotFoundException {
         // Declare a SELECT statement
         String selectStmt = "SELECT * FROM games";
         try {
@@ -74,7 +74,6 @@ public class GameDAO {
             game.setGame_id(rs.getInt("GAME_ID"));
             game.setName(rs.getString("NAME"));
             game.setDevelop(rs.getString("DEVELOP"));
-            game.setCreate_date(rs.getDate("CREATE_DATE"));
             game.setCost(rs.getDouble("COST"));
             gameList.add(game);
         }
@@ -86,12 +85,9 @@ public class GameDAO {
     public static void updateGameCost (String gameid,Double costGame) throws SQLException, ClassNotFoundException  {
         // Declare a UPDATE statement
         String updateStmt =
-                "BEGIN\n" +
-                        "  UPDATE Games\n" +
-                        "      SET COST = '" + costGame + "'\n" +
-                        "    WHERE GAME_ID = " + gameid + ";\n"+
-                        "   COMMIT;\n" +
-                        "END;";
+                        "UPDATE games\n" +
+                        "    SET COST = '" + costGame + "'\n" +
+                        "    WHERE GAME_ID = " + gameid;
         // Execute UPDATE operation
         try {
             DBUtil.dbExecuteUpdate(updateStmt);
@@ -106,11 +102,8 @@ public class GameDAO {
     public static void deleteGameWithId (String gameId) throws SQLException,ClassNotFoundException {
         // Declare a DELETE statement
         String updateStmt =
-                "BEGIN\n" +
-                        "  DELETE FROM Games\n" +
-                        "        WHERE game_id =" + gameId +";\n" +
-                        "    COMMIT;\n" +
-                        "END;";
+                        "DELETE FROM games\n" +
+                        "        WHERE game_id = " + gameId;
         // Execute DELETE Operation
         try {
             DBUtil.dbExecuteUpdate(updateStmt);
@@ -119,23 +112,37 @@ public class GameDAO {
             throw e;
         }
     }
+    public static int searchMaxGameID() throws  SQLException, ClassNotFoundException{
+        // Szuka ostatniego najwyższego ID by później wykorzystać go przy dodawanie kolejnej gry
+        int maxId = 1;
+        try {
+            String query = "SELECT MAX(GAME_ID) as maxid FROM games";
+            ResultSet rs = DBUtil.dbPreparedStatementExecuteQuery(query);
+            while (rs.next()){
+                maxId = rs.getInt("maxid");
+            }
+            int nextId = maxId+1;
+            System.out.println("MAX ID ----> " + maxId +" | NEXT ID ----> "  + nextId);
+        }catch (SQLException e){
+            System.out.println("Nie znaleziono ostatniego ID");
+            e.printStackTrace();
+        }
+        return maxId + 1;
+    }
     //**************************
     // INSERT a Game
     //**************************
     public static void insertGame (String name, String develop, Double cost) throws SQLException, ClassNotFoundException {
-        // Declare a INSERT statement
+
         String updateStmt =
-                "BEGIN\n" +
-                        "INSERT INTO games\n" +
-                        "(GAME_ID, NAME, DEVELOP, CREATE_DATE, COST)\n" +
-                        "VALUES\n" +
-                        "(sequence_game.nextval, '"+name+", '"+develop+", '"+cost+"', SYSDATE, 'IT_PROG');\n" +
-                        "END;";
-        // Execute INSERT operation
+                        "INSERT INTO games " +
+                        "(GAME_ID, NAME, DEVELOP, COST)" +
+                        "VALUES" +
+                        "("+ searchMaxGameID() + ", '"+ name + "', '" + develop + "', " + cost +")";
         try {
             DBUtil.dbExecuteUpdate(updateStmt);
         }catch (SQLException e){
-            System.out.println("Error acccurred while DELETE Operation: " + e);
+            System.out.println("Error acccurred while INSERT Operation: " + e);
             throw e;
         }
     }
