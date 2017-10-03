@@ -12,14 +12,12 @@ public class Game {
     private IntegerProperty game_id;
     private StringProperty name;
     private StringProperty develop;
-    private SimpleObjectProperty<Date> create_date;
     private DoubleProperty cost;
 
     public Game() {
         this.game_id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.develop = new SimpleStringProperty();
-        this.create_date = new SimpleObjectProperty<>();
         this.cost = new SimpleDoubleProperty();
     }
 
@@ -57,18 +55,6 @@ public class Game {
 
     public void setDevelop(String develop) {
         this.develop.set(develop);
-    }
-
-    public Date getCreate_date() {
-        return create_date.get();
-    }
-
-    public SimpleObjectProperty<Date> create_dateProperty() {
-        return create_date;
-    }
-
-    public void setCreate_date(Date create_date) {
-        this.create_date.set(create_date);
     }
 
     public double getCost() {

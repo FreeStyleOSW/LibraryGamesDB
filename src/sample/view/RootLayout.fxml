@@ -17,7 +17,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Operations">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New Menu Item" />
+                        <MenuItem mnemonicParsing="false" text="Add Game" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

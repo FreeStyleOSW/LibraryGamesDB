@@ -1,7 +1,6 @@
 package sample.util;
 
 import com.sun.rowset.CachedRowSetImpl;
-
 import java.sql.*;
 
 /**
@@ -9,14 +8,14 @@ import java.sql.*;
  */
 public class DBUtil {
     // Declare JDBC Driver
-    private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
+    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     // Connection
     private static Connection conn = null;
 
     // String Połączenia
     // String connStr = "jdbc:oracle:thin:Username/Password@IP:Port/SID";
     // Username=HR, Password=HR, IP=localhost, IP=1521, SID=xe
-    private static final String connStr = "jdbc:oracle:thin:Marcin/kadimato@localhost:1521/xe";
+    private static final String connStr = "jdbc:mysql://localhost:3306/librarygames";
 
     //Connect to DB
     public static void dbConnect() throws SQLException, ClassNotFoundException {
@@ -28,12 +27,9 @@ public class DBUtil {
             e.printStackTrace();
             throw e;
         }
-
-        System.out.println("Zarejestrowano Sterownik Oracle JDBC!");
-
         // Establish the Oracle Connection using Connection String
         try {
-            conn = DriverManager.getConnection(connStr);
+            conn = DriverManager.getConnection(connStr,"Kadimato","marcink1995");
         }catch (SQLException e) {
             System.out.println("Connection Failed! Check output console" + e);
             e.printStackTrace();
@@ -58,11 +54,11 @@ public class DBUtil {
         CachedRowSetImpl crs = null;
         try {
             // Connect to DB (Establish Oracle Connection)
-            System.out.println("Select statement: " + queryStmt + "\n");
+            dbConnect();
+            System.out.println("Select statement:  " + queryStmt + "\n");
 
             // Create statement
             stmt = conn.createStatement();
-
             // Execute select (query) operation
             resultSet = stmt.executeQuery(queryStmt);
 
@@ -97,8 +93,27 @@ public class DBUtil {
                 // Close statement
                 stmt.close();
             }
-            dbConnect();
+            dbDisconnect();
         }
+    }
+    public static ResultSet  dbPreparedStatementExecuteQuery(String sqlstmt) throws SQLException, ClassNotFoundException {
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        CachedRowSetImpl crs = null;
+        try {
+            dbConnect();
+            pst = conn.prepareStatement(sqlstmt);
+            rs = pst.executeQuery();
+            crs = new CachedRowSetImpl();
+            crs.populate(rs);
+        }catch (SQLException e) {
+            System.out.println("Problem accured at executeQuery (PreparedStatement): \n" + e);
+            throw e;
+        }finally {
+            if (pst != null)pst.close();
+            dbDisconnect();
+        }
+        return crs;
     }
 }
 
