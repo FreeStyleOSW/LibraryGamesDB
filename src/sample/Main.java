@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,19 +19,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage){
-        //1) Declare a primary stage (Everything will be on this stage)
         this.primaryStage = primaryStage;
 
-        //Optional: Set a title for primary stage
         this.primaryStage.setTitle("Biblioteka Gier");
 
-        //2) Initialize RootLayout
         initRootLayout();
-//        Parent root = FXMLLoader.load(getClass().getResource("view/RootLayout.fxml"));
-//        primaryStage.setTitle("Hello World");
-//        primaryStage.setScene(new Scene(root, 300, 275));
-//        primaryStage.show();
-        //3) Display the GameOperationsView
+
         showGameView();
     }
 
@@ -56,7 +50,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
     // Shows the Game operations view inside the root layout.
     public void showGameView() {
         try {
@@ -71,7 +64,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 
     public static void main(String[] args) {
         launch(args);

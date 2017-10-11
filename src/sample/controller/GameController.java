@@ -18,11 +18,11 @@ import java.sql.SQLException;
  */
 public class GameController {
     @FXML private TextArea resultArea;
-    @FXML private TextField newCostText;
-    @FXML private TextField gameIdText;
     @FXML private TextField nameText;
     @FXML private TextField developText;
     @FXML private TextField costText;
+    @FXML private TextField newCostText;
+    @FXML private TextField gameIdText;
     @FXML private TableView gamesTable;
 
     @FXML private TableColumn<Game,Integer> gameIdColumn;
@@ -30,7 +30,6 @@ public class GameController {
     @FXML private TableColumn<Game,String> gameDevelopColumn;
     @FXML private TableColumn<Game,Double> gameCostColumn;
 
-    // Search a game
     @FXML
     private void searchGame () throws ClassNotFoundException,SQLException{
         try {
@@ -49,7 +48,6 @@ public class GameController {
             throw e;
         }
     }
-    // Search all games
     @FXML
     private void loadTableFromDataBase() throws SQLException, ClassNotFoundException {
         try {
@@ -62,8 +60,6 @@ public class GameController {
             throw e;
         }
     }
-    // Initializing the controller class.
-    // This method is automatically called after the fxml file has been loaded.
     @FXML
     private void initialize () throws SQLException ,  ClassNotFoundException{
         gameIdColumn.setCellValueFactory(cellData -> cellData.getValue().game_idProperty().asObject());
@@ -81,7 +77,6 @@ public class GameController {
         // Set items to the gameTable
         gamesTable.setItems(gamesData);
     }
-    // Set Game information to Text Area
     @FXML
     private void setGameInfoToTextArea (Game game) throws ClassNotFoundException {
         resultArea.setText
@@ -89,7 +84,6 @@ public class GameController {
                  "Developer: " + game.getDevelop() +
                  "Cost: " + game.getCost());
     }
-    // Populate Game for TableView and Display Game on TextArea
     @FXML
     private void loadGameWithInfo(Game game) throws ClassNotFoundException{
         if (game != null){
@@ -111,6 +105,7 @@ public class GameController {
                 return;
             }
             GameDAO.updateGameCost(gameIdText.getText(),Double.valueOf(newCostText.getText()));
+            loadTableFromDataBase();
             resultArea.setText("Cost has been updated for, game id: " + gameIdText.getText() + "\n");
         }catch (SQLException e){
             resultArea.setText("Problem accurred while updating cost: " + e);
@@ -132,7 +127,6 @@ public class GameController {
             resultArea.setText("Problem accurred while inserting game " + e);
         }
     }
-    //Delete a game with a given game id from DB
     @FXML
     private void deleteGame (ActionEvent actionEvent) throws SQLException,ClassNotFoundException{
         try {
@@ -141,6 +135,7 @@ public class GameController {
                 return;
             }
             GameDAO.deleteGameWithId(gameIdText.getText());
+            loadTableFromDataBase();
             resultArea.setText("Game deleted! Game: " + gameIdText.getText() + "\n");
         }catch (SQLException e) {
             resultArea.setText("Problem accured while deleting game " + e);
