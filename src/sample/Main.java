@@ -39,11 +39,6 @@ public class Main extends Application {
             Scene scene = new Scene(rootLayout); // We are sending rootLayout to the Scene.
             primaryStage.setScene(scene); // Set the scene in primary stage.
 
-//            Give the controller access to the main.
-//            RootLayoutController controller = loader.getController();
-//            controller.setMain(this);
-
-            //Third, show the primary stage
             primaryStage.show(); //Display the primary stage
 
         }catch (IOException e){
