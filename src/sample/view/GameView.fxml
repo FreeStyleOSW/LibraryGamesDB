@@ -11,7 +11,34 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.GameController">
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.GameController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Operations">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Add Game" onAction="#showDialogWindow"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleHelp" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+<AnchorPane>
     <children>
         <TextField fx:id="gameIdText" layoutX="193.0" layoutY="41.0" prefHeight="25.0" prefWidth="67.0" promptText="Game ID" />
         <Label layoutX="194.0" layoutY="21.0" prefHeight="17.0" prefWidth="56.0" text="Game ID" />
@@ -53,3 +80,5 @@
       <Button fx:id="refreshBtn" layoutX="530.0" layoutY="70.0" mnemonicParsing="false" onAction="#loadTableFromDataBase" prefHeight="25.0" prefWidth="56.0" text="Refresh" />
     </children>
 </AnchorPane>
+    </center>
+</BorderPane>

@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import sample.model.Game;
 import sample.model.GameDAO;
 
@@ -29,6 +26,21 @@ public class GameController {
     @FXML private TableColumn<Game,String> gameNameColumn;
     @FXML private TableColumn<Game,String> gameDevelopColumn;
     @FXML private TableColumn<Game,Double> gameCostColumn;
+
+    @FXML
+    private void handleExit() {
+        System.exit(0);
+    }
+
+    @FXML
+    private void handleHelp (){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Program Information");
+        alert.setHeaderText("To jest moja pierwsza aplikacja używająca bazę danych");
+        alert.setContentText("Możesz szukać, usuwać, dodawać nowe gry w tej aplikacji");
+        alert.show();
+        // SOURCE --> http://www.swtestacademy.com/database-operations-javafx/
+    }
 
     @FXML
     private void searchGame () throws ClassNotFoundException,SQLException{
@@ -141,5 +153,7 @@ public class GameController {
             resultArea.setText("Problem accured while deleting game " + e);
             throw e;
         }
+    }
+    public void showDialogWindow() {
     }
 }

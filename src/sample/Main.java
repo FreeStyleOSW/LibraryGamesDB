@@ -25,22 +25,17 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showGameView();
+//        showGameView();
     }
 
     private void initRootLayout() {
         try {
-            //First load root layout from RootLayout.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("view/RootLayout.fxml"));
+            loader.setLocation(getClass().getResource("view/GameView.fxml"));
             rootLayout = (BorderPane) loader.load();
-
-            //Second, show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout); // We are sending rootLayout to the Scene.
-            primaryStage.setScene(scene); // Set the scene in primary stage.
-
-            primaryStage.show(); //Display the primary stage
-
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
         }catch (IOException e){
             e.printStackTrace();
         }
