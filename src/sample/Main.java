@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -20,14 +21,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
-
         this.primaryStage.setTitle("Biblioteka Gier");
-
         initRootLayout();
-
-//        showGameView();
     }
-
     private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -41,22 +37,3 @@ public class Main extends Application {
         }
     }
 }
-    // Shows the Game operations view inside the root layout.
-//    public void showGameView() {
-//        try {
-//            //First, load GameView from RootLayout.fxml
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
-//            AnchorPane gameOperationsView = (AnchorPane) loader.load();
-//
-//            // Set Game Operations view int the center of root layout.
-//            rootLayout.setCenter(gameOperationsView);
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        launch(args);
-//    }
-//}

@@ -26,6 +26,13 @@ public class Game {
         this.price = new SimpleDoubleProperty();
     }
 
+    public Game(Game another){
+        this.game_id = another.game_idProperty();
+        this.name = another.nameProperty();
+        this.develop = another.developProperty();
+        this.price = another.priceProperty();
+    }
+
     public int getGame_id() {
         return game_id.get();
     }

@@ -45,20 +45,26 @@ public class GameDAO {
                         "VALUES" +
                         "("+ searchMaxGameID() + ", '"+ game.getName() + "', '" + game.getDevelop() + "', " + game.getPrice() +")";
         try {
+            System.out.println(updateStmt);
             DBUtil.dbExecuteUpdate(updateStmt);
         }catch (SQLException e){
             System.out.println("Error acccurred while INSERT Operation: " + e);
             throw e;
         }
     }
-    public static void updateGameCost (String gameid,Double costGame) throws SQLException, ClassNotFoundException  {
+    public static void updateGame (Game game) throws SQLException, ClassNotFoundException  {
         // Declare a UPDATE statement
         String updateStmt =
                 "UPDATE games\n" +
-                        "    SET COST = '" + costGame + "'\n" +
-                        "    WHERE GAME_ID = " + gameid;
+                        "    SET " +
+                        "NAME = '" + game.getName() + "', " +
+                        "DEVELOP = '" + game.getDevelop() + "', " +
+                        "COST = '" + game.getPrice() + "'" +
+                        "\n" +
+                        "    WHERE GAME_ID = " + game.getGame_id();
         // Execute UPDATE operation
         try {
+            System.out.println(updateStmt);
             DBUtil.dbExecuteUpdate(updateStmt);
         }catch (SQLException e){
             System.out.println("Error accured while UPDATE Operation: " + e);
@@ -72,6 +78,7 @@ public class GameDAO {
                         "        WHERE game_id = " + gameId;
         // Execute DELETE Operation
         try {
+            System.out.println(updateStmt);
             DBUtil.dbExecuteUpdate(updateStmt);
         }catch (SQLException e) {
             System.out.println("Error accured while DELETE Operation: " + e);

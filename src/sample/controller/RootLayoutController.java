@@ -1,5 +1,10 @@
 package sample.controller;
 
+// TODO Dodać ikony do pasków informacyjnych
+// TODO Nie działa autoinkrementacja w bazie danych. Usunać metode searchMaxGameID
+// TODO Kiedy gra ma isSelected można ją update'ować
+
+
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,13 +15,15 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import sample.Main;
 import sample.model.Game;
 import sample.model.GameDAO;
 
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Marcin on 21.09.2017.
@@ -42,10 +49,9 @@ public class RootLayoutController {
     @FXML
     private void loadTableFromDataBase() throws SQLException, ClassNotFoundException {
         try {
-            // Get all games information
             ObservableList<Game> gameData = GameDAO.findAllGames();
-            // Populate Games on TableView
             gamesTable.setItems(gameData);
+            System.out.println("REFRESH TABLE");
         }catch (SQLException e) {
             System.out.println("Error accured while getting games information from DB.\n");
             throw e;
@@ -79,29 +85,9 @@ public class RootLayoutController {
             gamesTable.setItems(null);
         }
     }
-    //    TODO Stworzyć nową klase UpdateGame.
-    @FXML
-    private void updateGameCost () throws SQLException, ClassNotFoundException {
-        try {
-            if (gameIdText.getText().equals("")) {
-                resultArea.setText("UpdateGame INFO\nPlease select Game!");
-                return;
-            }else if (gameIdText.getText().equals("")){
-                resultArea.setText("Please insert new Cost");
-                return;
-            }
-            GameDAO.updateGameCost(gameIdText.getText(),Double.valueOf(gameIdText.getText()));
-            loadTableFromDataBase();
-            resultArea.setText("Cost has been updated for, game id: " + gameIdText.getText() + "\n");
-        }catch (SQLException e){
-            resultArea.setText("Problem accurred while updating cost: " + e);
-            throw e;
-        }
-    }
     @FXML
     private void searchGame () throws ClassNotFoundException,SQLException{
         try {
-            // Get Game information
             if (gameIdText.getText().equals("")) {
                 resultArea.setText("Search INFO:\nPlease select Game!");
                 loadTableFromDataBase();
@@ -145,7 +131,6 @@ public class RootLayoutController {
             throw e;
         }
     }
-//    TODO Dodać Validacje do TextField'ów
     @FXML
     private void showDialogAddGame() {
         Dialog<Game> dialog = new Dialog<>();
@@ -173,48 +158,50 @@ public class RootLayoutController {
         grid.add(new Label("Price:"), 0, 2);
         grid.add(priceGame, 1, 2);
 
-        Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
-        loginButton.setDisable(true);
+        Node addButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        addButton.setDisable(true);
 
         nameGame.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.isEmpty());
+            addButton.setDisable(newValue.isEmpty());
             if (newValue.equals("")){
+                addButton.setDisable(true);
                 nameGame.setStyle("-fx-control-inner-background: lightcoral");
             }else {
+                addButton.setDisable(false);
                 nameGame.setStyle("-fx-control-inner-background: lightgreen");
             }
         });
 
         developerGame.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.isEmpty());
+            addButton.setDisable(newValue.isEmpty());
             if (newValue.equals("")){
+                addButton.setDisable(true);
                 developerGame.setStyle("-fx-control-inner-background: lightcoral");
             }else {
+                addButton.setDisable(false);
                 developerGame.setStyle("-fx-control-inner-background: lightgreen");
             }
         });
 
         priceGame.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.isEmpty());
+            addButton.setDisable(newValue.isEmpty());
             Double res = null;
             try {
                 if (newValue.equals("")){
+                    addButton.setDisable(true);
                     priceGame.setStyle("-fx-control-inner-background: lightcoral");
                 }else {
+                    addButton.setDisable(false);
                     res = Double.valueOf(newValue);
                     priceGame.setStyle("-fx-control-inner-background: lightgreen");
                 }
             }catch (Exception e){
+                addButton.setDisable(true);
                 priceGame.setStyle("-fx-control-inner-background: lightcoral");
             };
         });
-
         dialog.getDialogPane().setContent(grid);
-
-// Request focus on the username field by default.
         Platform.runLater(() -> nameGame.requestFocus());
-
-// Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
                 return new Game
@@ -227,7 +214,7 @@ public class RootLayoutController {
             return null;
         });
         Optional<Game> result = dialog.showAndWait();
-        result.ifPresent(usernamePassword -> {
+        result.ifPresent(game -> {
             System.out.println(result.get());
             try {
                 insertGame(result.get());
@@ -237,6 +224,99 @@ public class RootLayoutController {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+        });
+    }
+    @FXML
+    private void showDialogUpdateGame() throws SQLException, ClassNotFoundException {
+        if (gameIdText.getText().equals("")) {
+            resultArea.setText("UpdateGame INFO\nPlease select Game!");
+            return;
+        }
+        Dialog dialog = new Dialog<>();
+        dialog.setTitle("Update Game");
+
+        ButtonType loginButtonType = new ButtonType("Update Game", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+
+        String gameId = gameIdText.getText();
+        Game game = GameDAO.searchGame(gameId);
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        TextField nameGame = new TextField(game.getName());
+        TextField developerGame = new TextField(game.getDevelop());
+        TextField priceGame = new TextField(String.valueOf(game.getPrice()));
+        nameGame.setPromptText("Game name");
+        developerGame.setPromptText("Developer");
+        priceGame.setPromptText("Price");
+
+        grid.add(new Label("Game name:"), 0, 0);
+        grid.add(nameGame, 1, 0);
+        grid.add(new Label("Developer:"), 0, 1);
+        grid.add(developerGame, 1, 1);
+        grid.add(new Label("Price:"), 0, 2);
+        grid.add(priceGame, 1, 2);
+
+        Node UpdateButton = dialog.getDialogPane().lookupButton(loginButtonType);
+        UpdateButton.setDisable(true);
+
+        nameGame.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                game.setName(newValue);
+                UpdateButton.setDisable(false);
+                nameGame.setStyle("-fx-control-inner-background: lightgreen");
+            }catch (Exception e){
+                UpdateButton.setDisable(true);
+                nameGame.setStyle("-fx-control-inner-background: lightcoral");
+            }
+        });
+
+        developerGame.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                game.setDevelop(newValue);
+                UpdateButton.setDisable(false);
+                developerGame.setStyle("-fx-control-inner-background: lightgreen");
+            }catch (Exception e) {
+                UpdateButton.setDisable(true);
+                developerGame.setStyle("-fx-control-inner-background: lightcoral");
+            }
+        });
+
+        priceGame.textProperty().addListener((observable, oldValue, newValue) -> {
+            Double res = null;
+            try {
+                res = Double.valueOf(newValue);
+                UpdateButton.setDisable(false);
+                game.setPrice(res);
+                priceGame.setStyle("-fx-control-inner-background: lightgreen");
+            }catch (Exception e){
+                UpdateButton.setDisable(true);
+                priceGame.setStyle("-fx-control-inner-background: lightcoral");
+            };
+        });
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.show();
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType){
+                try {
+                    GameDAO.updateGame(game);
+                    loadTableFromDataBase();
+                    gameIdText.setText("");
+                }catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Error! Update Game didn't work!");
+                }
+                resultArea.setText("Update INFO\nGame updated!\n" +
+                        "Game: " + game.getName() +
+                        "\nDeveloper: " + game.getDevelop() +
+                        "\nPrice: " + game.getPrice()
+                );
+                return "You update The Game!";
+            }
+            return "You cancel Update! WHY?";
         });
     }
 }
