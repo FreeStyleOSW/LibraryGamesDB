@@ -77,7 +77,7 @@ public class DBUtil {
         }
         return crs;
     }
-    // DB Execute Update (For Update/Insert/Delete) Operation
+    // DB Execute UpdateGame (For UpdateGame/Insert/Delete) Operation
     public static void dbExecuteUpdate (String sqlStmt) throws SQLException, ClassNotFoundException {
         // Declare statement as null
         Statement stmt = null;

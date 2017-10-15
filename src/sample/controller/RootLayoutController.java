@@ -16,6 +16,7 @@ import sample.model.GameDAO;
 
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Marcin on 21.09.2017.
@@ -78,12 +79,12 @@ public class RootLayoutController {
             gamesTable.setItems(null);
         }
     }
-    //    TODO Stworzyć nową klase Update.
+    //    TODO Stworzyć nową klase UpdateGame.
     @FXML
     private void updateGameCost () throws SQLException, ClassNotFoundException {
         try {
             if (gameIdText.getText().equals("")) {
-                resultArea.setText("Update INFO\nPlease select Game!");
+                resultArea.setText("UpdateGame INFO\nPlease select Game!");
                 return;
             }else if (gameIdText.getText().equals("")){
                 resultArea.setText("Please insert new Cost");
@@ -148,8 +149,7 @@ public class RootLayoutController {
     @FXML
     private void showDialogAddGame() {
         Dialog<Game> dialog = new Dialog<>();
-        dialog.setTitle("New game dialog");
-        dialog.setHeaderText("Create new game");
+        dialog.setTitle("Add New Game");
 
         ButtonType loginButtonType = new ButtonType("Add Game", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
@@ -176,9 +176,37 @@ public class RootLayoutController {
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
         loginButton.setDisable(true);
 
-        //zachowanie przy zmianie wartości
         nameGame.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
+            loginButton.setDisable(newValue.isEmpty());
+            if (newValue.equals("")){
+                nameGame.setStyle("-fx-control-inner-background: lightcoral");
+            }else {
+                nameGame.setStyle("-fx-control-inner-background: lightgreen");
+            }
+        });
+
+        developerGame.textProperty().addListener((observable, oldValue, newValue) -> {
+            loginButton.setDisable(newValue.isEmpty());
+            if (newValue.equals("")){
+                developerGame.setStyle("-fx-control-inner-background: lightcoral");
+            }else {
+                developerGame.setStyle("-fx-control-inner-background: lightgreen");
+            }
+        });
+
+        priceGame.textProperty().addListener((observable, oldValue, newValue) -> {
+            loginButton.setDisable(newValue.isEmpty());
+            Double res = null;
+            try {
+                if (newValue.equals("")){
+                    priceGame.setStyle("-fx-control-inner-background: lightcoral");
+                }else {
+                    res = Double.valueOf(newValue);
+                    priceGame.setStyle("-fx-control-inner-background: lightgreen");
+                }
+            }catch (Exception e){
+                priceGame.setStyle("-fx-control-inner-background: lightcoral");
+            };
         });
 
         dialog.getDialogPane().setContent(grid);
