@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 /**
  * Created by Marcin on 25.09.2017.
  */
-public class ConnectionConfiguration {
+public class DBConnection {
     public static Connection getConnection() {
         Connection connection = null;
 

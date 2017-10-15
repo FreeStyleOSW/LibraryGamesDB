@@ -15,7 +15,7 @@ public class Main extends Application {
     private Stage primaryStage;
 
     //This is the BorderPane of RootLayout
-    private BorderPane rootLayout;
+    private AnchorPane rootLayout;
 
     @Override
     public void start(Stage primaryStage){
@@ -31,8 +31,8 @@ public class Main extends Application {
     private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("view/GameView.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            loader.setLocation(getClass().getResource("view/RootLayout.fxml"));
+            rootLayout = (AnchorPane) loader.load();
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -40,22 +40,23 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-    // Shows the Game operations view inside the root layout.
-    public void showGameView() {
-        try {
-            //First, load GameView from GameView.fxml
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/GameView.fxml"));
-            AnchorPane gameOperationsView = (AnchorPane) loader.load();
-
-            // Set Game Operations view int the center of root layout.
-            rootLayout.setCenter(gameOperationsView);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
+    // Shows the Game operations view inside the root layout.
+//    public void showGameView() {
+//        try {
+//            //First, load GameView from RootLayout.fxml
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
+//            AnchorPane gameOperationsView = (AnchorPane) loader.load();
+//
+//            // Set Game Operations view int the center of root layout.
+//            rootLayout.setCenter(gameOperationsView);
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
+//}

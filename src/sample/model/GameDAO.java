@@ -2,9 +2,7 @@ package sample.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.util.ConnectionConfiguration;
 import sample.util.DBUtil;
-import sun.plugin2.gluegen.runtime.CPU;
 
 import java.sql.*;
 
@@ -17,15 +15,14 @@ public class GameDAO {
     // ********************
     public static Game searchGame (String gameId) throws SQLException, ClassNotFoundException {
         String selectStmt = "SELECT * FROM games WHERE GAME_ID = " + gameId;
-
         // Execute SELECT statement
         try {
             // Get ResultSet from dbExecuteQuery method
             ResultSet rsGame = DBUtil.dbExecuteQuery(selectStmt);
             // Send ResultSet to the getGameFromResultSet method and get game object
-            Game game = getGameFromResultSet(rsGame);
+            Game result = getGameFromResultSet(rsGame);
             // Return game object
-            return game;
+            return result;
         }catch (SQLException e){
             System.out.println("While searching a game with " + gameId + " id, an error accurred: " + e);
             // Return exception
@@ -40,7 +37,7 @@ public class GameDAO {
             game.setGame_id(rs.getInt("GAME_ID"));
             game.setName(rs.getString("NAME"));
             game.setDevelop(rs.getString("DEVELOP"));
-            game.setCost(rs.getDouble("COST"));
+            game.setPrice(rs.getDouble("COST"));
         }
         return game;
     }
@@ -74,7 +71,7 @@ public class GameDAO {
             game.setGame_id(rs.getInt("GAME_ID"));
             game.setName(rs.getString("NAME"));
             game.setDevelop(rs.getString("DEVELOP"));
-            game.setCost(rs.getDouble("COST"));
+            game.setPrice(rs.getDouble("COST"));
             gameList.add(game);
         }
         return gameList;
@@ -132,13 +129,14 @@ public class GameDAO {
     //**************************
     // INSERT a Game
     //**************************
-    public static void insertGame (String name, String develop, Double cost) throws SQLException, ClassNotFoundException {
+    // zmiana z String name, String develop, Double cost na Game game
+    public static void insertGame (Game game) throws SQLException, ClassNotFoundException {
 
         String updateStmt =
                         "INSERT INTO games " +
                         "(GAME_ID, NAME, DEVELOP, COST)" +
                         "VALUES" +
-                        "("+ searchMaxGameID() + ", '"+ name + "', '" + develop + "', " + cost +")";
+                        "("+ searchMaxGameID() + ", '"+ game.getName() + "', '" + game.getDevelop() + "', " + game.getPrice() +")";
         try {
             DBUtil.dbExecuteUpdate(updateStmt);
         }catch (SQLException e){
