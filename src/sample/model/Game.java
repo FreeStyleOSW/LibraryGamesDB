@@ -5,20 +5,25 @@ package sample.model;
  */
 
 import javafx.beans.property.*;
-import java.sql.Date;
 
 public class Game {
     // Declare Employees Table Columns
     private IntegerProperty game_id;
     private StringProperty name;
     private StringProperty develop;
-    private DoubleProperty cost;
+    private DoubleProperty price;
+
+    public Game(StringProperty name, StringProperty develop, DoubleProperty price) {
+        this.name = name;
+        this.develop = develop;
+        this.price = price;
+    }
 
     public Game() {
         this.game_id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.develop = new SimpleStringProperty();
-        this.cost = new SimpleDoubleProperty();
+        this.price = new SimpleDoubleProperty();
     }
 
     public int getGame_id() {
@@ -57,15 +62,15 @@ public class Game {
         this.develop.set(develop);
     }
 
-    public double getCost() {
-        return cost.get();
+    public double getPrice() {
+        return price.get();
     }
 
-    public DoubleProperty costProperty() {
-        return cost;
+    public DoubleProperty priceProperty() {
+        return price;
     }
 
-    public void setCost(double cost) {
-        this.cost.set(cost);
+    public void setPrice(double price) {
+        this.price.set(price);
     }
 }

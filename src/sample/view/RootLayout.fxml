@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.RootLayoutController">
-    <top>
-        <MenuBar BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.RootLayoutController">
+    <children>
+        <MenuBar prefHeight="25.0" prefWidth="627.0" BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -17,7 +26,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Operations">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Add Game" onAction="#showDialogWindow"/>
+                        <MenuItem mnemonicParsing="false" onAction="#showDialogAddGame" text="Add Game" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -27,5 +36,31 @@
                 </Menu>
             </menus>
         </MenuBar>
-    </top>
-</BorderPane>
+        <Button fx:id="searchGameBtn" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" onAction="#searchGame" prefHeight="25.0" prefWidth="155.0" text="Search" />
+        <Button fx:id="deleteGameBtn" layoutX="14.0" layoutY="141.0" mnemonicParsing="false" onAction="#deleteGame" prefHeight="25.0" prefWidth="155.0" text="Delete" />
+        <Button fx:id="refreshBtn" layoutX="14.0" layoutY="173.0" mnemonicParsing="false" onAction="#loadTableFromDataBase" prefHeight="25.0" prefWidth="155.0" text="Refresh Table" />
+        <Button fx:id="updateGameBtn" layoutX="14.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Update" />
+        <TextArea fx:id="resultArea" layoutX="14.0" layoutY="277.0" prefHeight="85.0" prefWidth="155.0" wrapText="true" />
+        <TextField fx:id="gameIdText" layoutX="74.0" layoutY="36.0" prefHeight="25.0" prefWidth="94.0" />
+        <Label layoutX="14.0" layoutY="260.0" text="Result Console">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <Label layoutX="14.0" layoutY="40.0" text="Game ID">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <VBox layoutX="65.0" layoutY="24.0" spacing="4.0" />
+        <Separator layoutX="176.0" layoutY="25.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
+        <TableView fx:id="gamesTable" editable="true" layoutX="183.0" layoutY="36.0" prefHeight="327.0" prefWidth="432.0" tableMenuButtonVisible="true">
+            <columns>
+                <TableColumn fx:id="gameIdColumn" prefWidth="57.0" text="ID" />
+                <TableColumn fx:id="gameNameColumn" prefWidth="138.0" text="Name" />
+                <TableColumn fx:id="gameDevelopColumn" prefWidth="162.0" text="Developer" />
+                <TableColumn fx:id="gamePriceColumn" prefWidth="70.0" text="Price" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
