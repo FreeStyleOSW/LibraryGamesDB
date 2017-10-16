@@ -1,13 +1,12 @@
 package sample.controller;
 
-// TODO Dodać ikony do pasków informacyjnych
 // TODO Nie działa autoinkrementacja w bazie danych. Usunać metode searchMaxGameID
-// TODO Kiedy gra ma isSelected można ją update'ować
 
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -136,6 +135,9 @@ public class RootLayoutController {
         Dialog<Game> dialog = new Dialog<>();
         dialog.setTitle("Add New Game");
 
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/sample/resources/gamesfolder.png"));
+
         ButtonType loginButtonType = new ButtonType("Add Game", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
 
@@ -234,6 +236,8 @@ public class RootLayoutController {
         }
         Dialog dialog = new Dialog<>();
         dialog.setTitle("Update Game");
+        Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/sample/resources/gamesfolder.png"));
 
         ButtonType loginButtonType = new ButtonType("Update Game", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
@@ -318,5 +322,12 @@ public class RootLayoutController {
             }
             return "You cancel Update! WHY?";
         });
+    }
+    @FXML
+    private void setGameIdTextFromTable(){
+        if (gamesTable.getSelectionModel().getSelectedItem() != null){
+            Game game = (Game) gamesTable.getSelectionModel().getSelectedItem();
+            gameIdText.setText(String.valueOf(game.getGame_id()));
+        }
     }
 }

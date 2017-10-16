@@ -22,6 +22,7 @@ public class Main extends Application {
     public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Biblioteka Gier");
+        this.primaryStage.getIcons().add(new Image("/sample/resources/gamesfolder.png"));
         initRootLayout();
     }
     private void initRootLayout() {
