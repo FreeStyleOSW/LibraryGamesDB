@@ -12,10 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    //This is our PrimaryStage (It contains everything)
     private Stage primaryStage;
-
-    //This is the BorderPane of RootLayout
     private AnchorPane rootLayout;
 
     @Override

@@ -7,7 +7,6 @@ package sample.model;
 import javafx.beans.property.*;
 
 public class Game {
-    // Declare Employees Table Columns
     private IntegerProperty game_id;
     private StringProperty name;
     private StringProperty develop;

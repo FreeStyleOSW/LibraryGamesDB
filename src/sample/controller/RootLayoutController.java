@@ -1,8 +1,5 @@
 package sample.controller;
 
-// TODO Nie działa autoinkrementacja w bazie danych. Usunać metode searchMaxGameID
-
-
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -24,6 +21,8 @@ import sample.model.GameDAO;
 import java.sql.SQLException;
 import java.util.Optional;
 
+// TODO Zrobić Rest do jakiejś biblioteki gier i pobrać je do swojej Bazy Danych
+
 /**
  * Created by Marcin on 21.09.2017.
  */
@@ -37,16 +36,14 @@ public class RootLayoutController {
     @FXML private TableColumn<Game,String> gameDevelopColumn;
     @FXML private TableColumn<Game,Double> gamePriceColumn;
 
-    @FXML
-    private void initialize () throws SQLException ,  ClassNotFoundException{
+    @FXML private void initialize () throws SQLException ,  ClassNotFoundException{
         gameIdColumn.setCellValueFactory(cellData -> cellData.getValue().game_idProperty().asObject());
         gameNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         gameDevelopColumn.setCellValueFactory(cellData -> cellData.getValue().developProperty());
         gamePriceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         loadTableFromDataBase();
     }
-    @FXML
-    private void loadTableFromDataBase() throws SQLException, ClassNotFoundException {
+    @FXML private void loadTableFromDataBase() throws SQLException, ClassNotFoundException {
         try {
             ObservableList<Game> gameData = GameDAO.findAllGames();
             gamesTable.setItems(gameData);
@@ -56,12 +53,10 @@ public class RootLayoutController {
             throw e;
         }
     }
-    @FXML
-    private void handleExit() {
+    @FXML private void handleExit() {
         System.exit(0);
     }
-    @FXML
-    private void handleHelp (){
+    @FXML private void handleHelp (){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Program Information");
         alert.setHeaderText("This is my first Application using Data Base");
@@ -69,8 +64,7 @@ public class RootLayoutController {
         alert.show();
         // SOURCE --> http://www.swtestacademy.com/database-operations-javafx/
     }
-    @FXML
-    private void loadGameWithInfo(Game game) throws ClassNotFoundException{
+    @FXML private void loadGameWithInfo(Game game) throws ClassNotFoundException{
         if (game != null){
             ObservableList<Game> gamesData = FXCollections.observableArrayList();
             gamesData.add(game);
@@ -84,8 +78,7 @@ public class RootLayoutController {
             gamesTable.setItems(null);
         }
     }
-    @FXML
-    private void searchGame () throws ClassNotFoundException,SQLException{
+    @FXML private void searchGame () throws ClassNotFoundException,SQLException{
         try {
             if (gameIdText.getText().equals("")) {
                 resultArea.setText("Search INFO:\nPlease select Game!");
@@ -100,8 +93,7 @@ public class RootLayoutController {
             throw e;
         }
     }
-    @FXML
-    private void insertGame (Game game) throws SQLException, ClassNotFoundException {
+    @FXML private void insertGame (Game game) throws SQLException, ClassNotFoundException {
         try {
             if (game.getName().equals("") || game.getDevelop().equals("") || game.getPrice() == 0){
                 resultArea.setText("Please check information about game !");
@@ -109,14 +101,16 @@ public class RootLayoutController {
             }
             GameDAO.insertGame(game);
             loadTableFromDataBase();
-            resultArea.setText("Insert INFO\nGame inserted!\n" +
-                    "Game: " + game.getName());
+            resultArea.setText("Insert INFO\nGame inserted!" +
+                    "\nGame: " + game.getName() +
+                    "\nDeveloper: " + game.getDevelop() +
+                    "\nPrice: " + game.getPrice()
+            );
         }catch (SQLException e) {
             resultArea.setText("Problem accurred while inserting game " + e);
         }
     }
-    @FXML
-    private void deleteGame (ActionEvent actionEvent) throws SQLException,ClassNotFoundException{
+    @FXML private void deleteGame (ActionEvent actionEvent) throws SQLException,ClassNotFoundException{
         try {
             if (gameIdText.getText().equals("")) {
                 resultArea.setText("Delete INFO:\nPlease select Game!");
@@ -124,14 +118,15 @@ public class RootLayoutController {
             }
             GameDAO.deleteGameWithId(gameIdText.getText());
             loadTableFromDataBase();
-            resultArea.setText("Game deleted! Game: " + gameIdText.getText() + "\n");
+            resultArea.setText("Game deleted!" +
+                    "\nGame: " + gameIdText.getText() + "\n"
+            );
         }catch (SQLException e) {
             resultArea.setText("Problem accured while deleting game " + e);
             throw e;
         }
     }
-    @FXML
-    private void showDialogAddGame() {
+    @FXML private void showDialogAddGame() {
         Dialog<Game> dialog = new Dialog<>();
         dialog.setTitle("Add New Game");
 
@@ -228,8 +223,7 @@ public class RootLayoutController {
             }
         });
     }
-    @FXML
-    private void showDialogUpdateGame() throws SQLException, ClassNotFoundException {
+    @FXML private void showDialogUpdateGame() throws SQLException, ClassNotFoundException {
         if (gameIdText.getText().equals("")) {
             resultArea.setText("UpdateGame INFO\nPlease select Game!");
             return;
@@ -323,8 +317,7 @@ public class RootLayoutController {
             return "You cancel Update! WHY?";
         });
     }
-    @FXML
-    private void setGameIdTextFromTable(){
+    @FXML private void setGameIdTextFromTable(){
         if (gamesTable.getSelectionModel().getSelectedItem() != null){
             Game game = (Game) gamesTable.getSelectionModel().getSelectedItem();
             gameIdText.setText(String.valueOf(game.getGame_id()));
