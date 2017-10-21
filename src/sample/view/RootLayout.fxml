@@ -39,10 +39,14 @@
         <Button fx:id="searchGameBtn" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" onAction="#searchGame" prefHeight="25.0" prefWidth="155.0" text="Search" />
         <Button fx:id="deleteGameBtn" layoutX="14.0" layoutY="141.0" mnemonicParsing="false" onAction="#deleteGame" prefHeight="25.0" prefWidth="155.0" text="Delete" />
         <Button fx:id="refreshBtn" layoutX="14.0" layoutY="173.0" mnemonicParsing="false" onAction="#loadTableFromDataBase" prefHeight="25.0" prefWidth="155.0" text="Refresh Table" />
-        <Button fx:id="updateGameBtn" layoutX="14.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Update" />
-        <TextArea fx:id="resultArea" layoutX="14.0" layoutY="277.0" prefHeight="85.0" prefWidth="155.0" wrapText="true" />
-        <TextField fx:id="gameIdText" layoutX="74.0" layoutY="36.0" prefHeight="25.0" prefWidth="94.0" />
-        <Label layoutX="14.0" layoutY="260.0" text="Result Console">
+        <Button fx:id="updateGameBtn" layoutX="14.0" layoutY="109.0" mnemonicParsing="false" onAction="#showDialogUpdateGame" prefHeight="25.0" prefWidth="155.0" text="Update" />
+        <TextArea fx:id="resultArea" layoutX="14.0" layoutY="232.0" prefHeight="131.0" prefWidth="155.0" promptText="WELCOME!" wrapText="true">
+            <font>
+                <Font name="System Bold" size="10" />
+            </font>
+        </TextArea>
+        <TextField fx:id="gameIdText" layoutX="74.0" layoutY="36.0" prefHeight="25.0" prefWidth="94.0" promptText="Game ID" />
+        <Label layoutX="14.0" layoutY="208.0" text="Result Console">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
@@ -54,7 +58,7 @@
         </Label>
         <VBox layoutX="65.0" layoutY="24.0" spacing="4.0" />
         <Separator layoutX="176.0" layoutY="25.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
-        <TableView fx:id="gamesTable" editable="true" layoutX="183.0" layoutY="36.0" prefHeight="327.0" prefWidth="432.0" tableMenuButtonVisible="true">
+        <TableView fx:id="gamesTable" onMouseClicked="#setGameIdTextFromTable" editable="true" layoutX="183.0" layoutY="36.0" prefHeight="327.0" prefWidth="432.0" tableMenuButtonVisible="true">
             <columns>
                 <TableColumn fx:id="gameIdColumn" prefWidth="57.0" text="ID" />
                 <TableColumn fx:id="gameNameColumn" prefWidth="138.0" text="Name" />

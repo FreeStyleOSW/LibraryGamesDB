@@ -7,7 +7,6 @@ package sample.model;
 import javafx.beans.property.*;
 
 public class Game {
-    // Declare Employees Table Columns
     private IntegerProperty game_id;
     private StringProperty name;
     private StringProperty develop;
@@ -24,6 +23,13 @@ public class Game {
         this.name = new SimpleStringProperty();
         this.develop = new SimpleStringProperty();
         this.price = new SimpleDoubleProperty();
+    }
+
+    public Game(Game another){
+        this.game_id = another.game_idProperty();
+        this.name = another.nameProperty();
+        this.develop = another.developProperty();
+        this.price = another.priceProperty();
     }
 
     public int getGame_id() {
