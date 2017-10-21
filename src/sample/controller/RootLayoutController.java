@@ -22,6 +22,10 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 // TODO Zrobić Rest do jakiejś biblioteki gier i pobrać je do swojej Bazy Danych
+// TODO Design aplikacji
+// TODO łączenie się z bazą danych dodać
+// TODO Oczyscic Contorller , stworzyc nowe klasy
+// TODO Dodać aliasy z githuba
 
 /**
  * Created by Marcin on 21.09.2017.
