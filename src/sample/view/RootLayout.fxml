@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="371.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.RootLayoutController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.RootLayoutController">
     <children>
         <MenuBar prefHeight="25.0" prefWidth="627.0" BorderPane.alignment="CENTER">
             <menus>
@@ -58,7 +58,7 @@
         </Label>
         <VBox layoutX="65.0" layoutY="24.0" spacing="4.0" />
         <Separator layoutX="176.0" layoutY="25.0" orientation="VERTICAL" prefHeight="333.0" prefWidth="7.0" />
-        <TableView fx:id="gamesTable" onMouseClicked="#setGameIdTextFromTable" editable="true" layoutX="183.0" layoutY="36.0" prefHeight="327.0" prefWidth="432.0" tableMenuButtonVisible="true">
+        <TableView fx:id="gamesTable" editable="true" layoutX="183.0" layoutY="36.0" onMouseClicked="#setGameIdTextFromTable" prefHeight="327.0" prefWidth="432.0" tableMenuButtonVisible="true">
             <columns>
                 <TableColumn fx:id="gameIdColumn" prefWidth="57.0" text="ID" />
                 <TableColumn fx:id="gameNameColumn" prefWidth="138.0" text="Name" />

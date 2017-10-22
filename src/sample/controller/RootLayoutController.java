@@ -3,7 +3,6 @@ package sample.controller;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,7 +44,9 @@ public class RootLayoutController {
         gameNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         gameDevelopColumn.setCellValueFactory(cellData -> cellData.getValue().developProperty());
         gamePriceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-        loadTableFromDataBase();
+//        loadTableFromDataBase();
+        ObservableList<Game> gameData = GameDAO.findAllGames();
+        gamesTable.setItems(gameData);
     }
     @FXML private void loadTableFromDataBase() throws SQLException, ClassNotFoundException {
         try {
@@ -86,7 +87,7 @@ public class RootLayoutController {
         try {
             if (gameIdText.getText().equals("")) {
                 resultArea.setText("Search INFO:\nPlease select Game!");
-                loadTableFromDataBase();
+//                loadTableFromDataBase();
                 return;
             }
             Game game = GameDAO.searchGame(gameIdText.getText());
@@ -104,7 +105,7 @@ public class RootLayoutController {
                 return;
             }
             GameDAO.insertGame(game);
-            loadTableFromDataBase();
+//            loadTableFromDataBase();
             resultArea.setText("Insert INFO\nGame inserted!" +
                     "\nGame: " + game.getName() +
                     "\nDeveloper: " + game.getDevelop() +
@@ -121,7 +122,7 @@ public class RootLayoutController {
                 return;
             }
             GameDAO.deleteGameWithId(gameIdText.getText());
-            loadTableFromDataBase();
+//            loadTableFromDataBase();
             resultArea.setText("Game deleted!" +
                     "\nGame: " + gameIdText.getText() + "\n"
             );
@@ -219,7 +220,7 @@ public class RootLayoutController {
             System.out.println(result.get());
             try {
                 insertGame(result.get());
-                loadTableFromDataBase();
+//                loadTableFromDataBase();
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -305,7 +306,7 @@ public class RootLayoutController {
             if (dialogButton == loginButtonType){
                 try {
                     GameDAO.updateGame(game);
-                    loadTableFromDataBase();
+//                    loadTableFromDataBase();
                     gameIdText.setText("");
                 }catch (Exception e) {
                     e.printStackTrace();
