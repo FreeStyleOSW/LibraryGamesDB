@@ -63,7 +63,7 @@
                 <TableColumn fx:id="gameIdColumn" prefWidth="57.0" text="ID" />
                 <TableColumn fx:id="gameNameColumn" prefWidth="138.0" text="Name" />
                 <TableColumn fx:id="gameDevelopColumn" prefWidth="162.0" text="Developer" />
-                <TableColumn fx:id="gamePriceColumn" prefWidth="70.0" text="Price" />
+                <TableColumn fx:id="gamePriceColumn" prefWidth="65.0" text="Price" />
             </columns>
         </TableView>
     </children>

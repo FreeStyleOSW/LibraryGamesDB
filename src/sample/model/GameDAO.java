@@ -42,12 +42,12 @@ public class GameDAO {
         try {
             // Get ResultSet from dbExecuteQuery method
             ResultSet rsGame = DBUtil.dbExecuteQuery(selectStmt);
-            // Send ResultSet to the getGameFromResultSet method and get game object
+            // Send ResultSet to the getGameFromResultSet method and get addingGame object
             Game result = getGameFromResultSet(rsGame);
-            // Return game object
+            // Return addingGame object
             return result;
         }catch (SQLException e){
-            System.out.println("While searching a game with " + gameId + " id, an error accurred: " + e);
+            System.out.println("While searching a addingGame with " + gameId + " id, an error accurred: " + e);
             // Return exception
             throw e;
         }
@@ -90,7 +90,7 @@ public class GameDAO {
         // Declare a DELETE statement
         String updateStmt =
                 "DELETE FROM librarygames\n" +
-                        "        WHERE game_id = " + gameId;
+                        "        WHERE GAME_ID = " + gameId;
         // Execute DELETE Operation
         try {
             System.out.println(updateStmt);
@@ -121,10 +121,10 @@ public class GameDAO {
             // Get ResultSet from dbExecuteQuery method
             ResultSet rsGames = DBUtil.dbExecuteQuery(selectStmt);
 
-            // Send ResultSet to the getGamesList method and get game object
+            // Send ResultSet to the getGamesList method and get addingGame object
             ObservableList<Game> gameList = getGameList(rsGames);
 
-            //Return game object
+            //Return addingGame object
             return gameList;
         }catch (SQLException e){
             System.out.println("SQL select operation has been failed: " + e);
