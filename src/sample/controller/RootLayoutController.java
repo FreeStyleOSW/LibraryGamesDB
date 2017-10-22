@@ -19,7 +19,7 @@ import sample.model.GameDAO;
 
 import java.sql.SQLException;
 import java.util.Optional;
-
+// TODO TOO MUCH TO DO !
 // TODO Zrobić Rest do jakiejś biblioteki gier i pobrać je do swojej Bazy Danych
 // TODO Design aplikacji
 // TODO łączenie się z bazą danych dodać
