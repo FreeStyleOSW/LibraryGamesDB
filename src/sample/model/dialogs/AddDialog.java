@@ -10,7 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sample.model.Game;
+import sample.model.GameDAO;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class AddDialog extends Dialog<Game> {
@@ -102,8 +104,7 @@ public class AddDialog extends Dialog<Game> {
         Platform.runLater(() -> nameGame.requestFocus());
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
-                return new Game
-                        (
+                return new Game(
                                 new SimpleStringProperty(nameGame.getText()),
                                 new SimpleStringProperty(developerGame.getText()),
                                 new SimpleDoubleProperty(Double.valueOf(priceGame.getText()))
@@ -113,8 +114,12 @@ public class AddDialog extends Dialog<Game> {
         });
         Optional<Game> result = dialog.showAndWait();
         result.ifPresent(game -> {
-            System.out.println(result.get());
-            addingGame = result.get();
+            try {
+                GameDAO.insertGame((Game)result.get());
+                addingGame = result.get();
+            } catch (Exception e) {
+                System.out.println("Button CANCEL CLICKED!");
+            }
         });
     }
 }

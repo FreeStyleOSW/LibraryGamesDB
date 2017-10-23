@@ -11,11 +11,6 @@ import sample.model.dialogs.SureDialog;
 import sample.model.dialogs.UpdateDialog;
 
 import java.sql.SQLException;
-// TODO Zrobić Rest do jakiejś biblioteki gier i pobrać je do swojej Bazy Danych
-// TODO Design aplikacji
-// TODO łączenie się z bazą danych dodać
-// TODO Dodać aliasy z githuba
-
 /**
  * Created by Marcin on 21.09.2017.
  */
@@ -86,23 +81,6 @@ public class RootLayoutController {
             throw e;
         }
     }
-    @FXML private void insertGame (Game game) throws SQLException, ClassNotFoundException {
-        try {
-            if (game.getName().equals("") || game.getDevelop().equals("") || game.getPrice() == 0){
-                resultArea.setText("Please check information about game !");
-                return;
-            }
-            GameDAO.insertGame(game);
-            loadTableFromDataBase();
-            resultArea.setText("Insert INFO\nGame inserted!" +
-                    "\nGame: " + game.getName() +
-                    "\nDeveloper: " + game.getDevelop() +
-                    "\nPrice: " + game.getPrice()
-            );
-        }catch (SQLException e) {
-            resultArea.setText("Problem accurred while inserting game " + e);
-        }
-    }
     @FXML private void deleteGame (ActionEvent actionEvent) throws SQLException,ClassNotFoundException{
         try {
             if (gameIdText.getText().equals("")) {
@@ -126,8 +104,18 @@ public class RootLayoutController {
     }
     @FXML private void showDialogAddGame() throws SQLException, ClassNotFoundException {
         AddDialog addDialog = new AddDialog();
-        insertGame(addDialog.getAddingGame());
+        Game game = addDialog.getAddingGame();
+        if (game == null)return;
+        if (game.getName().equals("") || game.getDevelop().equals("") || game.getPrice() == 0){
+            resultArea.setText("Please check information about game !");
+            return;
+        }
         loadTableFromDataBase();
+        resultArea.setText("Insert INFO\nGame inserted!" +
+                "\nGame: " + game.getName() +
+                "\nDeveloper: " + game.getDevelop() +
+                "\nPrice: " + game.getPrice()
+        );
     }
     @FXML private void showDialogUpdateGame() throws SQLException, ClassNotFoundException {
         if (gameIdText.getText().equals("")){

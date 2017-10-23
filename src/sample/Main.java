@@ -4,12 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+// TODO Zmienić funkcjonalność przycisku "Szukaj"
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -28,6 +29,9 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("view/RootLayout.fxml"));
             rootLayout = (AnchorPane) loader.load();
+            BackgroundImage myBI = new BackgroundImage(new Image("sample/resources/backgroundImage.jpg"),
+                    BackgroundRepeat.REPEAT,BackgroundRepeat.NO_REPEAT,BackgroundPosition.CENTER,BackgroundSize.DEFAULT);
+            rootLayout.setBackground(new Background(myBI));
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -35,4 +39,5 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
 }
