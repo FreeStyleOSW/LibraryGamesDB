@@ -1,27 +1,20 @@
 package sample.controller;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import sample.model.*;
+import sample.model.dialogs.AddDialog;
+import sample.model.dialogs.SureDialog;
+import sample.model.dialogs.UpdateDialog;
 
 import java.sql.SQLException;
-import java.util.Optional;
 // TODO Zrobić Rest do jakiejś biblioteki gier i pobrać je do swojej Bazy Danych
 // TODO Design aplikacji
 // TODO łączenie się z bazą danych dodać
 // TODO Dodać aliasy z githuba
-// TODO Czy napewno chcesz usunąć tą gre ? Poprawić okno
 
 /**
  * Created by Marcin on 21.09.2017.

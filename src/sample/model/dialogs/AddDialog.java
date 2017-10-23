@@ -1,4 +1,4 @@
-package sample.model;
+package sample.model.dialogs;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.model.Game;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package sample.model;
+package sample.model.dialogs;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.model.Game;
+import sample.model.GameDAO;
 
 import java.sql.SQLException;
 

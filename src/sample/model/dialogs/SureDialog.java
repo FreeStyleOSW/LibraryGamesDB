@@ -1,4 +1,4 @@
-package sample.model;
+package sample.model.dialogs;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -45,11 +46,17 @@ public class SureDialog {
         Node yesButton = dialog.getDialogPane().lookupButton(yesButtonType);
         Node noButton = dialog.getDialogPane().lookupButton(noButtonType);
         dialog.getDialogPane().getButtonTypes().addAll(yesButtonType,noButtonType);
-        BorderPane borderPane = new BorderPane();
         Label areYouSure = new Label("Are you sure ?");
+        HBox hBox = new HBox();
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setSpacing(20);
+        ImageView imageView = new ImageView("/sample/resources/warningIcon.png");
+        imageView.setFitHeight(64);
+        imageView.setFitWidth(64);
+        hBox.getChildren().add(imageView);
+        hBox.getChildren().add(areYouSure);
         areYouSure.setFont(Font.font(15));
-        borderPane.setCenter(areYouSure);
-        dialog.getDialogPane().setContent(borderPane);
+        dialog.getDialogPane().setContent(hBox);
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == yesButtonType) {
                 return true;
