@@ -14,7 +14,7 @@ import java.sql.SQLException;
 /**
  * Created by Marcin on 21.09.2017.
  */
-public class RootLayoutController {
+public class Controller {
     @FXML private TextArea resultArea;
     @FXML private TextField gameIdText;
     @FXML private TableView gamesTable;
