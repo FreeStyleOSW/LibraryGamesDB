@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-// TODO Zmienić funkcjonalność przycisku "Szukaj"
 
 public class Main extends Application {
     private Stage primaryStage;
