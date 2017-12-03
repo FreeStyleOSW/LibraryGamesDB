@@ -1,22 +1,13 @@
-package sample.model.dialogs;
+package app.model.dialogs;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import java.util.Optional;
 
 public class SureDialog {
     Dialog<Boolean> dialog;
@@ -39,7 +30,7 @@ public class SureDialog {
         dialog.setTitle("Warning!");
 
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/sample/resources/gamesfolder.png"));
+        stage.getIcons().add(new Image("/main/resources/gamesfolder.png"));
 
         ButtonType yesButtonType = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType noButtonType = new ButtonType("No", ButtonBar.ButtonData.NO);
@@ -50,7 +41,7 @@ public class SureDialog {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(20);
-        ImageView imageView = new ImageView("/sample/resources/warningIcon.png");
+        ImageView imageView = new ImageView("/main/resources/warningIcon.png");
         imageView.setFitHeight(64);
         imageView.setFitWidth(64);
         hBox.getChildren().add(imageView);
