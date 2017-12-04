@@ -1,8 +1,8 @@
-package sample.model;
+package app.model;
 
+import app.util.DBUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import sample.util.DBUtil;
 
 import java.sql.*;
 
@@ -31,7 +31,7 @@ public class GameDAO {
             game = new Game();
             game.setGame_id(rs.getInt("GAME_ID"));
             game.setName(rs.getString("NAME"));
-            game.setDevelop(rs.getString("DEVELOPER"));
+            game.setDeveloper(rs.getString("DEVELOPER"));
             game.setPrice(rs.getDouble("PRICE"));
         }
         return game;
@@ -58,7 +58,7 @@ public class GameDAO {
                 "INSERT INTO librarygames " +
                         "(NAME, DEVELOPER, PRICE)" +
                         "VALUES" +
-                        "('"+ game.getName() + "', '" + game.getDevelop() + "', '" + game.getPrice() +"'"+")";
+                        "('"+ game.getName() + "', '" + game.getDeveloper() + "', '" + game.getPrice() +"'"+")";
         try {
             System.out.println(updateStmt);
             DBUtil.dbExecuteUpdate(updateStmt);
@@ -73,7 +73,7 @@ public class GameDAO {
                 "UPDATE librarygames\n" +
                         "    SET " +
                         "NAME = '" + game.getName() + "', " +
-                        "DEVELOPER = '" + game.getDevelop() + "', " +
+                        "DEVELOPER = '" + game.getDeveloper() + "', " +
                         "PRICE = '" + game.getPrice() + "'" +
                         "\n" +
                         "    WHERE GAME_ID = " + game.getGame_id();
@@ -108,7 +108,7 @@ public class GameDAO {
             Game game = new Game();
             game.setGame_id(rs.getInt("GAME_ID"));
             game.setName(rs.getString("NAME"));
-            game.setDevelop(rs.getString("DEVELOPER"));
+            game.setDeveloper(rs.getString("DEVELOPER"));
             game.setPrice(rs.getDouble("PRICE"));
             gameList.add(game);
         }

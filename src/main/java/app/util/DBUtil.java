@@ -1,4 +1,4 @@
-package sample.util;
+package app.util;
 
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.*;

@@ -1,18 +1,16 @@
-package sample.controller;
+package app.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
-import sample.model.*;
-import sample.model.dialogs.AddDialog;
-import sample.model.dialogs.SureDialog;
-import sample.model.dialogs.UpdateDialog;
+import app.model.*;
+import app.model.dialogs.AddDialog;
+import app.model.dialogs.SureDialog;
+import app.model.dialogs.UpdateDialog;
 
 import java.sql.SQLException;
-
 /**
  * Created by Marcin on 21.09.2017.
  */
@@ -37,7 +35,7 @@ public class Controller {
     private void initialize() throws SQLException, ClassNotFoundException {
         gameIdColumn.setCellValueFactory(cellData -> cellData.getValue().game_idProperty().asObject());
         gameNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        gameDevelopColumn.setCellValueFactory(cellData -> cellData.getValue().developProperty());
+        gameDevelopColumn.setCellValueFactory(cellData -> cellData.getValue().developerProperty());
         gamePriceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         loadTableFromDataBase();
     }
@@ -77,7 +75,7 @@ public class Controller {
             gamesTable.setItems(gamesData);
             resultArea.setText
                     ("Name: " + game.getName() + "\n" +
-                            "Developer: " + game.getDevelop() +
+                            "Developer: " + game.getDeveloper() +
                             "Cost: " + game.getPrice());
         } else {
             resultArea.setText("This Game does not exist !\n");
@@ -130,14 +128,14 @@ public class Controller {
         AddDialog addDialog = new AddDialog();
         Game game = addDialog.getAddingGame();
         if (game == null) return;
-        if (game.getName().equals("") || game.getDevelop().equals("") || game.getPrice() == 0) {
+        if (game.getName().equals("") || game.getDeveloper().equals("") || game.getPrice() == 0) {
             resultArea.setText("Please check information about game !");
             return;
         }
         loadTableFromDataBase();
         resultArea.setText("Insert INFO\nGame inserted!" +
                 "\nGame: " + game.getName() +
-                "\nDeveloper: " + game.getDevelop() +
+                "\nDeveloper: " + game.getDeveloper() +
                 "\nPrice: " + game.getPrice()
         );
     }
@@ -153,7 +151,7 @@ public class Controller {
         if (updateDialog.getResultBoolen() == true) {
             resultArea.setText("Update INFO\nGame updated!\n" +
                     "Game: " + updateDialog.getUpdatingGame().getName() +
-                    "\nDeveloper: " + updateDialog.getUpdatingGame().getDevelop() +
+                    "\nDeveloper: " + updateDialog.getUpdatingGame().getDeveloper() +
                     "\nPrice: " + updateDialog.getUpdatingGame().getPrice());
         }
     }

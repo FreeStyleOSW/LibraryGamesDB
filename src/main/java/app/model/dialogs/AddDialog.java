@@ -1,5 +1,8 @@
-package sample.model.dialogs;
+package app.model.dialogs;
 
+import app.model.Game;
+import app.model.GameDAO;
+import app.util.RestClient;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,10 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import sample.model.Game;
-import sample.model.GameDAO;
 
-import java.sql.SQLException;
+
 import java.util.Optional;
 
 public class AddDialog extends Dialog<Game> {
@@ -32,7 +33,7 @@ public class AddDialog extends Dialog<Game> {
         dialog.setTitle("Add New Game");
 
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/sample/resources/gamesfolder.png"));
+        stage.getIcons().add(new Image("/image/gamesfolder.png"));
 
         ButtonType loginButtonType = new ButtonType("Add Game", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
@@ -116,9 +117,12 @@ public class AddDialog extends Dialog<Game> {
         result.ifPresent(game -> {
             try {
                 GameDAO.insertGame((Game)result.get());
+                RestClient restClient = new RestClient(game);
+                restClient.post();
                 addingGame = result.get();
             } catch (Exception e) {
                 System.out.println("Button CANCEL CLICKED!");
+                e.printStackTrace();
             }
         });
     }

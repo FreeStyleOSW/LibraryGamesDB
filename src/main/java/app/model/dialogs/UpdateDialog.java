@@ -1,13 +1,13 @@
-package sample.model.dialogs;
+package app.model.dialogs;
 
+import app.model.Game;
+import app.model.GameDAO;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import sample.model.Game;
-import sample.model.GameDAO;
 
 import java.sql.SQLException;
 
@@ -34,7 +34,7 @@ public class UpdateDialog {
         dialog = new Dialog<>();
         dialog.setTitle("Update Game");
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/sample/resources/gamesfolder.png"));
+        stage.getIcons().add(new Image("/main/resources/gamesfolder.png"));
 
         ButtonType updateButtonType = new ButtonType("Update Game", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(updateButtonType, ButtonType.CANCEL);
@@ -46,7 +46,7 @@ public class UpdateDialog {
         grid.setPadding(new Insets(20, 150, 10, 10));
 
         TextField nameGame = new TextField(game.getName());
-        TextField developerGame = new TextField(game.getDevelop());
+        TextField developerGame = new TextField(game.getDeveloper());
         TextField priceGame = new TextField(String.valueOf(game.getPrice()));
         nameGame.setPromptText("Game name");
         developerGame.setPromptText("Developer");
@@ -75,7 +75,7 @@ public class UpdateDialog {
 
         developerGame.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                game.setDevelop(newValue);
+                game.setDeveloper(newValue);
                 UpdateButton.setDisable(false);
                 developerGame.setStyle("-fx-control-inner-background: lightgreen");
             }catch (Exception e) {
