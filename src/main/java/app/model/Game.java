@@ -10,26 +10,26 @@ import javafx.beans.property.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Game {
     private IntegerProperty game_id;
-    private StringProperty name;
+    private StringProperty title;
     private StringProperty developer;
     private DoubleProperty price;
 
-    public Game(StringProperty name, StringProperty developer, DoubleProperty price) {
-        this.name = name;
+    public Game(StringProperty title, StringProperty developer, DoubleProperty price) {
+        this.title = title;
         this.developer = developer;
         this.price = price;
     }
 
     public Game() {
         this.game_id = new SimpleIntegerProperty();
-        this.name = new SimpleStringProperty();
+        this.title = new SimpleStringProperty();
         this.developer = new SimpleStringProperty();
         this.price = new SimpleDoubleProperty();
     }
 
     public Game(Game another){
         this.game_id = another.game_idProperty();
-        this.name = another.nameProperty();
+        this.title = another.nameProperty();
         this.developer = another.developerProperty();
         this.price = another.priceProperty();
     }
@@ -47,15 +47,15 @@ public class Game {
     }
 
     public String getName() {
-        return name.get();
+        return title.get();
     }
 
     public StringProperty nameProperty() {
-        return name;
+        return title;
     }
 
     public void setName(String name) {
-        this.name.set(name);
+        this.title.set(name);
     }
 
     public String getDeveloper() {
