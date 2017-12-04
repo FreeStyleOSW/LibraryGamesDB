@@ -11,7 +11,6 @@ import java.io.IOException;
 public class Main extends Application {
     private Stage primaryStage;
     private AnchorPane rootLayout;
-// komentarz
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
