@@ -30,7 +30,7 @@ public class SureDialog {
         dialog.setTitle("Warning!");
 
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/main/resources/gamesfolder.png"));
+        stage.getIcons().add(new Image("image/gamesfolder.png"));
 
         ButtonType yesButtonType = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType noButtonType = new ButtonType("No", ButtonBar.ButtonData.NO);
@@ -41,7 +41,7 @@ public class SureDialog {
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(20);
-        ImageView imageView = new ImageView("/main/resources/warningIcon.png");
+        ImageView imageView = new ImageView("image/warningIcon.png");
         imageView.setFitHeight(64);
         imageView.setFitWidth(64);
         hBox.getChildren().add(imageView);

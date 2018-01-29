@@ -2,7 +2,6 @@ package app.model.dialogs;
 
 import app.model.Game;
 import app.model.GameDAO;
-import app.util.RestClient;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -117,8 +116,6 @@ public class AddDialog extends Dialog<Game> {
         result.ifPresent(game -> {
             try {
                 GameDAO.insertGame((Game)result.get());
-                RestClient restClient = new RestClient(game);
-                restClient.post();
                 addingGame = result.get();
             } catch (Exception e) {
                 System.out.println("Button CANCEL CLICKED!");

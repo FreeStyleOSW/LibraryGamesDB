@@ -34,7 +34,7 @@ public class UpdateDialog {
         dialog = new Dialog<>();
         dialog.setTitle("Update Game");
         Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("/main/resources/gamesfolder.png"));
+        stage.getIcons().add(new Image("image/gamesfolder.png"));
 
         ButtonType updateButtonType = new ButtonType("Update Game", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(updateButtonType, ButtonType.CANCEL);
